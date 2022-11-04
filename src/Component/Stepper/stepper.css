@@ -1,0 +1,4 @@
+.steps .step:before{
+    height:2px;
+    min-width:9rem;
+}
