@@ -5,8 +5,9 @@ import {logoutUser} from "../../Actions/User";
 import {HiOutlineSearch} from "react-icons/hi"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import {CgProfile} from "react-icons/cg";
+import {BiLogOut} from "react-icons/bi";
+import {BiLogIn} from "react-icons/bi";
 function Navbar() {
   const [keyword,setKeyword] = useState('');
   const navigate = useNavigate();
@@ -33,15 +34,14 @@ function Navbar() {
 
   return (
   <>
-    <div className="navbar bg-white-100 decoration-neutral-900	mb-4 h-20	 shadow-xl	">
+  <div className="navbar bg-white-100 decoration-neutral-900 mb-4 h-20	 shadow-xl	">
   <div className="w-60">
     <NavLink></NavLink>
   </div>
   <ul className="flex-1 w-96 space-x-6 text-xl	">
    <li><NavLink to="/home">Home</NavLink></li>
    <li><NavLink to="/mens">Men</NavLink></li>
-   <li><NavLink to="/womens">Women</NavLink></li>
-   <li><NavLink to="/beauty">Accessories</NavLink></li>
+   <li><NavLink to="/accessories">Accessories</NavLink></li>
     </ul>
   <div className="w-96 ">
       <input type="text" placeholder="Search" className="w-96 px-4 py-2 bg-gray-200 rounded outline-0"
@@ -68,24 +68,8 @@ function Navbar() {
         </div>
       </div>
     </div>
-    <div className="dropdown dropdown-end">
-      <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img src="https://placeimg.com/80/80/people"  alt="profile"/>
-        </div>
-      </label>
-      <ul tabIndex={0} className=" dropdown-content mt-4 p-2 shadow bg-base-100  h-28	 w-28	">
-        <li>
-          <NavLink className="justify-between p-3 m-2 text-xs hover:font-bold	">
-            Profile
-          </NavLink>
-        </li>
-        <li><NavLink className="justify-between p-3 m-2 text-xs hover:font-bold">Settings</NavLink></li>
-       {
-        isAuthenticated ? <li><NavLink className="justify-between p-3 m-2 text-xs hover:font-bold" onClick={handelLogout}>Logout</NavLink></li> : 
-       <li><NavLink className="justify-between p-3 m-2 text-xs hover:font-bold" to="/login">Login</NavLink></li>
-       }
-      </ul>
+    <div className='m-3 cursor-pointer'>
+      {isAuthenticated ? <BiLogIn color='black' size={30} onClick={handelLogout} /> : <BiLogOut color='black' size={30} />}
     </div>
   </div>
 </div>
