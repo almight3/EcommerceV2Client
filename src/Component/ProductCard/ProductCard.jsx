@@ -1,12 +1,35 @@
 import {useState} from 'react';
-import {Link} from "react-router-dom";
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 import {FaRegHeart} from "react-icons/fa";
 import {FaHeart} from  "react-icons/fa";
+import {useDispatch,useSelector} from "react-redux";
+import {addToCart} from "../../Actions/Cart";
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function ProductCard({product}) {
-  const [rating, setRating] = useState(3);
+  
+  const dispatch = useDispatch();
+  const {isAuthenticated} =  useSelector((state)=>state.user);
+  const {cartItems} =  useSelector((state)=>state.cart);
+  const navigate = useNavigate();
+
+  const handelCart = ()=>{
+    // console.log(matches.id)
+    if(isAuthenticated){
+      dispatch(addToCart(product._id))
+      toast.success("product added to cart")
+    }
+    else{
+       navigate("/login")
+    }
+    
+   }
+
+
   return (
    
         <div className=" h-80 w-56	bg-white shadow-xl m-4 relative">
@@ -19,7 +42,9 @@ function ProductCard({product}) {
         <div className=' absolute top-0 h-full w-full border flex items-end  opacity-0 hover:opacity-100'>
           <div className='flex justify-center items-center w-full border cursor-pointer'>
             <FaRegHeart color='#ef4444' size={22} className='w-4/12 mx-auto'/>
-            <button className='p-3  font-medium  bg-black text-white w-8/12	'>Add To Cart</button>
+            {
+              cartItems.some(cart=>cart._id===product._id) ? <button className='p-3  font-medium  bg-black text-white w-8/12	' onClick={handelCart}>Remove From Cart</button> : <button className='p-3  font-medium  bg-black text-white w-8/12' onClick={handelCart}>Add To Cart</button>
+            }
           </div>
         </div>
         </div>
