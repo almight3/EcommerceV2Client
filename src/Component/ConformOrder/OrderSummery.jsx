@@ -11,7 +11,7 @@ function OrderSummery({subtotal,shipingCharge,tax,totalPrice}) {
        </ul>  
        <ul className='flex flex-wrap justify-between mx-4 my-2'> 
           <li className='text-sm'>Shipping Charges:</li>
-          <li className='text-sm'>{shipingCharge ? {shipingCharge} :0}</li>
+          <li className='text-sm'>{shipingCharge ? shipingCharge :0}</li>
         </ul>
         <ul className='flex flex-wrap justify-between mx-4 my-2'>
           <li className='text-sm'>GST:</li>
