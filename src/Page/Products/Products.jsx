@@ -8,19 +8,19 @@ import {Oval} from "react-loader-spinner";
 import "./Product.css";
 
 
-const categories = ["Shirts","T-shirts","Jeans","Footwear"];
-const range = [{range:'300-500'},{range:"500-1500"},{range:"1500-3000"},{range:"3000-5000"}];
+
+const range = [{range:'100-200'},{range:"200-400"},{range:"500-600"}];
 
 function Products() {
 
 const [page,setPage] = useState(1);  
 const [category,setCategory]= useState('');
-const [rating,setRating] = useState(null);
+const [ratings,setRating] = useState(null);
 const [filterPrice,setFilterPrice] = useState([])
-const [price,setPrice] = useState([300,5000]);
+const [price,setPrice] = useState([100,600]);
 const [priceRange,setPriceRange] = useState(range)
 const dispatch = useDispatch();
-const {keyword} = useParams();
+const {anime} = useParams();
 const {loading,error,products,productCount,resultPerPage} = useSelector((state)=>state.products)
 console.log(category)
 // page change
@@ -30,6 +30,7 @@ const handelPageChange = (e)=>{
 
 const handelPriceChange = (e)=>{
   const {value,checked} = e.target;
+  setPage(1)
   const tempArr = priceRange.map((price)=> price.range === value ? {...price,isChecked:checked} : price);
   setPriceRange(tempArr) 
   if(checked){
@@ -55,8 +56,8 @@ const handelPriceChange = (e)=>{
 
 // get all products
 useEffect(()=>{
-dispatch(getProduct(keyword,page,category,rating,price))
-},[dispatch,error,keyword,page,category,rating,price]);
+dispatch(getProduct(anime,page,category,ratings,price))
+},[dispatch,error,anime,page,category,ratings,price]);
 
 
   return (
@@ -73,13 +74,13 @@ dispatch(getProduct(keyword,page,category,rating,price))
     strokeWidthSecondary={1}
    /></div>    
   :<>
-    <div className="flex flex-col lg:flex-row w-8/12	mx-auto	">
-    <div className="flex flex-col	grow-1 w-2/12	bg-base justify-center items-center		">
+    <div className="flex flex-col content-center z-10 lg:flex-row w-4/6		mx-auto	">
+    <div className="flex flex-col	grow-1 w-2/12	bg-base justify-start items-center		">
           <div>
-          <ul className='mt-2'>
+          <ul className='mt-2 text-center'>
             {priceRange.map((price)=>(
-            <li className='m-1'>
-             <label className=''>{price.range}</label>
+            <li className='m-1' >
+             <label className='mr-2'>{price.range}</label>
              <input type="checkbox" value={price.range} checked={price?.isChecked || false}
              onChange={handelPriceChange} />
             </li>))
@@ -88,10 +89,12 @@ dispatch(getProduct(keyword,page,category,rating,price))
           
     </div>
     <div className="divider"></div> 
-    <div className='self-stretch pl-4 ml-4'>
-        <span className='font-medium'>Categories</span> 
+    <div className=''>
+        <span className='font-medium text-center'>Categories</span> 
         <ul className='mt-2'>
-          {categories.map((category)=><li className='cursor-pointer p-1' key={category} onClick={()=>setCategory(category)}>{category}</li>)}
+        <li className='cursor-pointer p-1'  onClick={()=>setCategory("tshirt")}>T-Shirt</li>
+        <li className='cursor-pointer p-1'  onClick={()=>setCategory("poster")}>Anime Poster</li>
+        <li className='cursor-pointer p-1'  onClick={()=>setCategory("")}>Manga</li>
         </ul>
     </div>  
     <div className="divider"></div> 
@@ -99,46 +102,44 @@ dispatch(getProduct(keyword,page,category,rating,price))
       <span className='font-medium'>Average Cutomer Ratings</span>
       <ul className='mt-2'>
          <li className='p-1 flex justify-between'>
-          <label className=" " htmlFor="rating">4 Stars and Above</label> 
-          <input  type="radio" name="rating" id="4" value={4} className="radio radio-xs radio-secondary" 
-           checked={rating==4} onChange={(e)=>setRating(e.target.value)} />
+          <label className=" " htmlFor="ratings">4 Stars and Above</label> 
+          <input  type="radio" name="ratings" id="4" value={4} className="radio radio-xs radio-secondary" 
+           checked={ratings==4} onChange={(e)=>setRating(e.target.value)} />
          </li>
 
          <li className='p-1 flex justify-between'>
-          <label htmlFor="rating">3 Stars and Above</label>
-          <input type="radio" name="rating" id="3" value={3} className="radio radio-xs	radio-secondary" 
-          checked={rating==3} onChange={(e)=>setRating(e.target.value)} />
+          <label htmlFor="ratings">3 Stars and Above</label>
+          <input type="radio" name="ratings" id="3" value={3} className="radio radio-xs	radio-secondary" 
+          checked={ratings==3} onChange={(e)=>setRating(e.target.value)} />
          </li>
          <li className='p-1 flex justify-between'>
-          <label htmlFor="rating"> 2 Stars and Above </label>
-          <input type="radio" name="rating" id="2" value={2} className="radio radio-xs	radio-secondary" 
-           checked={rating==2} onChange={(e)=>setRating(e.target.value)} />
+          <label htmlFor="ratings"> 2 Stars and Above </label>
+          <input type="radio" name="ratings" id="2" value={2} className="radio radio-xs	radio-secondary" 
+           checked={ratings==2} onChange={(e)=>setRating(e.target.value)} />
          </li>
          <li className='p-1 flex justify-between'>
-          <label htmlFor="rating">1 Stars and Above </label>
-          <input type="radio" name="rating" id="1" value={1} className="radio radio-xs	radio-secondary" 
-           checked={rating==1} onChange={(e)=>setRating(e.target.value)} />
+          <label htmlFor="ratings">1 Stars and Above </label>
+          <input type="radio" name="ratings" id="1" value={1} className="radio radio-xs	radio-secondary" 
+           checked={ratings==1} onChange={(e)=>setRating(e.target.value)} />
          </li>
       </ul>
     </div> 
     </div> 
-    <div className="divider lg:divider-horizontal"></div> 
-    <div className="flex flex-wrap w-8/12 bg-base rounded-box place-items-center box-content">
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard /> 
-      </div>
+    <div className="divider lg:divider-horizontal divider-margin"></div> 
+    <div className="flex flex-wrap justify-center w-8/12 bg-base rounded-box  box-content">
+       {
+        products.length === 0 ? "" :
+        products.map(product=><ProductCard product={product} />)
+       }
+    </div>
    </div>
    <div className="divider w-4/12	 mx-auto"></div> 
   <div className='pagination-container'>
-  <Pagination
+    <Pagination
         activePage={page}
         itemsCountPerPage={resultPerPage}
         totalItemsCount={productCount}
-        pageRangeDisplayed={2}
+        pageRangeDisplayed={productCount}
         onChange={handelPageChange}
         nextPageText="Next"
         prevPageText="Prev"
