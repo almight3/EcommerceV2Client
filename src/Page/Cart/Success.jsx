@@ -1,15 +1,18 @@
 import {useEffect} from 'react';
 import SuccessLogo from "../../image/success-12.svg";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {clearCartItems} from "../../Actions/Cart";
 function Success() {
   const navigate = useNavigate();
-   useEffect(()=>{
+  const dispatch = useDispatch();
+  useEffect(()=>{
    const timer = setTimeout(()=>{
-    navigate("/home")
+    navigate("/products")
    },3000)
+   dispatch(clearCartItems())
    return ()=>clearTimeout(timer)
-
-   },[]) 
+   },[navigate,dispatch]) 
 
   return (
     <>
