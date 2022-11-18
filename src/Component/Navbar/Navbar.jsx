@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {CgProfile} from "react-icons/cg";
 import {BiLogOut} from "react-icons/bi";
 import {BiLogIn} from "react-icons/bi";
+import {FaRegHeart} from "react-icons/fa";
+
 function Navbar() {
   const [keyword,setKeyword] = useState('');
   const navigate = useNavigate();
@@ -35,24 +37,26 @@ function Navbar() {
   return (
   <>
   <div className="navbar bg-white-100 decoration-neutral-900 mb-4 h-20	 shadow-xl	">
-  <div className="w-60">
-    <NavLink></NavLink>
-  </div>
-  <ul className="flex-1 w-96 space-x-6 text-xl	">
+  <ul className="flex-1 w-96 space-x-6 text-xl ml-8	">
    <li><NavLink to="/home">Home</NavLink></li>
    <li><NavLink to="/products">Products</NavLink></li>
    <li><NavLink to="/products/naruto">Naruto</NavLink></li>
    <li><NavLink to="/products/dbz">DBZ</NavLink></li>
    <li><NavLink to="/products/onepiece">OnePiece</NavLink></li>
   </ul>
-  <div className="w-96 ">
+  <div className="w-96 flex-1 ">
       <input type="text" placeholder="Search" className="w-96 px-4 py-2 bg-gray-200 rounded outline-0"
       onChange={(e)=>{setKeyword(e.target.value)}}
       />
       <button className='px-4 py-3 mr-3 bg-black' ><HiOutlineSearch color="white" onClick={()=>{handleSearch()}}/></button>
      
   </div>  
-  <div className="flex-none w-40">
+  
+  <Link to="/favourite">
+    <FaRegHeart size={20} className='mx-auto' />
+  </Link>
+  
+  <div className="w-32 mr-10">
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
         <div className="indicator">
@@ -71,8 +75,8 @@ function Navbar() {
       </div>
     </div>
     <div className='m-3 cursor-pointer'>
-      {isAuthenticated ? <BiLogOut color='black' size={30} onClick={handelLogout} /> :<Link to="/login">
-      <BiLogIn color='black' size={30} />
+      {isAuthenticated ? (<p><BiLogOut color='black' size={30} onClick={handelLogout} />logout</p>) :<Link to="/login">
+      <BiLogIn color='black' size={30} /> Login
       </Link>}
     </div>
   </div>
