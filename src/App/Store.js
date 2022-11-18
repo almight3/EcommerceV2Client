@@ -3,6 +3,7 @@ import { cartReducer } from '../Reducers/Cart';
 import { productReducer,productDetailReducer } from '../Reducers/Product';
 import { userReducer } from '../Reducers/User';
 import { orderReducer } from '../Reducers/order';
+import { favouriteReducer } from '../Reducers/Favourite';
 export const store = configureStore({
     reducer:{
     products:productReducer,    
@@ -10,6 +11,7 @@ export const store = configureStore({
     user:userReducer,
     cart:cartReducer,
     order:orderReducer,
+    favourite:favouriteReducer
     }
 });
 
