@@ -3,7 +3,8 @@ const initialState = {
     cartItems: localStorage.getItem("cartItems") ? 
     JSON.parse(localStorage.getItem("cartItems")) : [],
     shipingInfo:localStorage.getItem("shipingInfo") ? 
-    JSON.parse(localStorage.getItem("shipingInfo")):{}
+    JSON.parse(localStorage.getItem("shipingInfo")):{},
+    loading:false
 };
 
 export const cartReducer = createReducer(initialState,{
@@ -19,13 +20,18 @@ export const cartReducer = createReducer(initialState,{
 
     },
     RemoveFromCart:(state,action)=>{
-    console.log(action.payload.id)
-      return state.cartItems.filter((item)=>item.id !== action.payload.id);   
+    console.log(action.payload)
+    state.cartItems = state.cartItems.filter((item)=>item.id !== action.payload);   
     }, 
     ChangeQuantity:(state,action)=>{
         state.cartItems.filter((item)=> item.id===action.payload.id ?(item.quantity = action.payload.quantity) : item)
     },
+    ClearCartItems:(state)=>{
+       state.cartItems = []
+    },
     shipingInfo:(state,action)=>{
+        state.loading = true
         state.shipingInfo = action.payload
+        state.loading =false
     }
 })
