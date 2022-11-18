@@ -5,20 +5,21 @@ import OrderSummery from '../../../Component/ConformOrder/OrderSummery';
 import ShipingInfo from '../../../Component/ConformOrder/ShipingInfo';
 import {useNavigate} from "react-router-dom";
 import {Oval} from "react-loader-spinner";
+import ShipingItemCard from '../../../Component/ConformOrder/ShipingItemCard';
 
 function ConformOrder() {
- const {shipingInfo,cartItems} = useSelector((state)=>state.cart);
+ const {cartItems} = useSelector((state)=>state.cart);
  const {user,loading} = useSelector((state)=>state.user);
- const navigate = useNavigate(); 
+ const navigate = useNavigate();  
  const subtotal = cartItems.reduce((acc,item)=>{
     acc = acc + item.price * item.quantity
     return acc
   },0);
- 
- const shipingCharge = subtotal> 1500 ? 0 : 200;  
+ const shipingInfo = JSON.parse(localStorage.getItem("shipingInfo"))
+ const shipingCharge = subtotal > 1500 ? 0 : 200;  
  const tax = subtotal * 0.18; 
  const totalPrice = subtotal + shipingCharge + tax;
- const address = `${shipingInfo.country}, ${shipingInfo.state}, ${shipingInfo.city}, ${shipingInfo.address}`;
+ const address = `${shipingInfo?.country}, ${shipingInfo?.state}, ${shipingInfo?.city}, ${shipingInfo?.address}`;
  
  const handelPayment = ()=>{
     const data = {
@@ -48,15 +49,16 @@ function ConformOrder() {
    <>
    <Stepper step={2} />
       <h3 className='mx-auto my-7 text-center text-2xl font-medium'>Conform Order</h3>
-      <div className="flex justify-center w-9/12 mx-auto m-1 ">
-          <div className="bg-white shadow-xl w-2/4	flex flex-col	m-2 box-content">
-            {cartItems && cartItems.map((item)=>(<ShipingInfo 
-              address={address} 
-              userName={user ? user.name : ""} 
-              phoneNo={shipingInfo.number} 
-              price={item.price}  
-              quantity={item.quantity} 
-             />))}
+      <div className="flex justify-center w-9/12 h-1/5 mx-auto m-1 ">
+          <div className="bg-white shadow-xl w-2/4		flex flex-col	m-2 box-content">
+              <ShipingInfo 
+                  address={address} 
+                  userName={user ? user.name : ""} 
+                  phoneNo={shipingInfo.number} 
+              />
+            <div className='h-96	mt-2 border-t-2	 border-stone-700 overflow-auto'>
+            {cartItems && cartItems.map((item=><ShipingItemCard item={item} />))}
+            </div>
           </div>
           <div className="w-80 h-72	 bg-white shadow-xl m-2 box-content">
             <OrderSummery 
