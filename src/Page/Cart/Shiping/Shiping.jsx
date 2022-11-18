@@ -31,7 +31,6 @@ function Shiping() {
   }
   dispatch(shipingInfoData({address,country,state,city,pincode,number}))
   navigate("/conform/order")
-
   }
 
   return (
