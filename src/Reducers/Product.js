@@ -1,6 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+    products:[]
+};
 
 export const productReducer = createReducer(initialState,{
   allProductRequest:(state)=>{
