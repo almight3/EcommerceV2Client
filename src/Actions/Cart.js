@@ -1,8 +1,9 @@
 import axios from "axios";
+import { ANIMESTOREAPI } from "../Service/Service";
 
 export const addToCart = (id,quantity=1)=>async(dispatch,getState)=>{
 
-    const {data} = await axios.get(`/api/v1/product/${id}`)
+    const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/product/${id}`)
     dispatch({
     type:"AddToCart",
     payload:{
