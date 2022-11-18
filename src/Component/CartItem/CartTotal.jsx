@@ -26,7 +26,7 @@ function CartTotal() {
             <li className='text-sm font-semibold'> Rs.{totalAmount}</li>
           </ul> 
           <ul className='m-4 text-sm'>
-            <li>Delivery By  by Fri Oct 14</li>
+            <li></li>
           </ul> 
           <hr></hr>
           <ul className='m-4 flex justify-between'>
