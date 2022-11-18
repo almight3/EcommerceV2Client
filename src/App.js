@@ -15,7 +15,8 @@ import ConformOrder from './Page/Cart/ConformOrder/ConformOrder';
 import PaymentForm from './Page/Cart/Payment/PaymentForm';
 import Success from "./Page/Cart/Success"
 import Footer from "./Component/Footer/Footer"
-
+import Home from './Page/Home/Home';
+import Favourite from './Page/Favourite/Favourite';
 function App() {
   useEffect(()=>{
   store.dispatch(loadUser());
@@ -23,25 +24,26 @@ function App() {
   
   
   return (
-  <div className='bg-base-100 box-content'>
+  <div className='bg-base-100 z-0 box-content'>
       <BrowserRouter>
          <Navbar />
          <Routes>
-          <Route path="/process/payment" element={<PaymentForm />} />
-          <Route path="/home" element={<Products />} />
-          <Route path="/mens" element={<Products />} />
-          <Route path="/womens" element={<Products />} />
-          <Route path="/accessories" element={<Products />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/home/:keyword" element={<Products />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/products" element={<Products/>} />
+          {/* <Route path="/product/:id" element={<ProductDetails />} /> */}
+          {/* <Route path="/products/:keyword" element={<Products />} /> */}
+          <Route path="/products/:anime" element={<Products />} />
+          <Route path="/products/anime/:category" element={<Products />} />
           <Route path="/login" element={<Login />} />
           <Route path = "/signup" element={<Signup />} />
           <Route path="*" element= <Navigate to="/home" /> />
-          <Route path="/shiping" element={<Shiping />} />
-          <Route path="/conform/order" element={<ConformOrder />} />
-          <Route path="/success" element={<Success />} />
           <Route element={<PrivateRoute />}>
             <Route path="/cart" element={<Cart />} />
+            <Route path="/favourite" element={<Favourite />} />
+            <Route path="/shiping" element={<Shiping />} />
+            <Route path="/conform/order" element={<ConformOrder />} />
+            <Route path="/process/payment" element={<PaymentForm />} />
+            <Route path="/success" element={<Success />} />
           </Route>
           </Routes>
         <Footer />  
