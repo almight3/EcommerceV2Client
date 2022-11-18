@@ -65,3 +65,7 @@
 .container:nth-child(1){
     display: none;
 }
+
+.divider-margin{
+    margin: 0%;
+}

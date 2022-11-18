@@ -11,7 +11,7 @@ function Login() {
   const [email,setEmail] = useState('');
   const [password,setPasword] = useState('');
   const [inputError,setInputError] = useState('');
-  const {error,loading,isAuthenticated} = useSelector((state)=>state.user);
+  const {error,loading} = useSelector((state)=>state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -24,11 +24,7 @@ function Login() {
     toast.error(error);
     dispatch(clearError());
   }
-  if(isAuthenticated){
-    toast.success("User LoggedIn Succefully");
-    navigate("/home");
-  }
-  },[isAuthenticated,error,inputError])
+  },[error,inputError,dispatch])
 
 
   const handleSubmit = (e)=>{
@@ -40,9 +36,14 @@ function Login() {
       setInputError("Please Enter Password");
     }
     else{
-      dispatch(loginUser(email,password)); 
+      dispatch(loginUser(email,password,navigate,toast)) 
     }
     
+  }
+
+  const handelGuestLogin =()=>{
+      setEmail("admin@gmail.com")
+      setPasword("12345678")
   }
 
   return (
@@ -80,7 +81,7 @@ function Login() {
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="text" placeholder="email" className="input"  onChange={(e)=>{setEmail(e.target.value)}}
+          <input type="text" placeholder="email" className="input" password={email}  onChange={(e)=>{setEmail(e.target.value)}}
             required
           />
         </div>
@@ -88,7 +89,7 @@ function Login() {
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="password" placeholder="password" className="input"  onChange={(e)=>{setPasword(e.target.value)}}  required/>
+          <input type="password" placeholder="password" className="input" value={password} onChange={(e)=>{setPasword(e.target.value)}}  required/>
           <label className="label">
             <NavLink className="label-text-alt link link-hover">Forgot password?</NavLink>
           </label>
@@ -96,6 +97,9 @@ function Login() {
         
         <div className="form-control  ">
           <button className="btn btn-primary text-white" type="submit" onClick={(e)=>{handleSubmit(e)}}>Login</button>
+          <label className="label text-sm	mx-auto" onClick={handelGuestLogin} >
+             <NavLink  className=" link link-hover font-medium" to="/signup">Guest Login</NavLink>
+        </label>
         </div>
         <label className="label text-sm	mx-auto">
               <span>dont have account?   <NavLink  className=" link link-hover font-medium" to="/signup">Signup</NavLink> </span> 

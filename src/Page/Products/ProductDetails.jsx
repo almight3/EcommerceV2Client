@@ -19,7 +19,7 @@ const images = [
 
 function ProductDetails() {
   const {productDetails,error,loading} = useSelector((state)=>state.productDetails);
-  const {isAuthenticated} =  useSelector((state)=>state.user)
+  const {isAuthenticated} = useSelector((state)=>state.user) 
   const dispatch = useDispatch();
   const {id} = useParams();
   const navigate = useNavigate()
