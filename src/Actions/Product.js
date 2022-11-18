@@ -1,14 +1,19 @@
 import axios from "axios";
-export const getProduct = (keyword="",page,category,rating=1,price)=>async(dispatch)=>{
+import { ANIMESTOREAPI } from "../Service/Service";
+export const getProduct = (anime,page=1,category,ratings,price)=>async(dispatch)=>{
   try{
     dispatch({
         type:"allProductRequest"
-  });
-    console.log(category)
-    let link =  `/api/v1/products?keyword=${keyword}&page=${page}&rating[gte]=${rating}&price[gte]=${price[0] ?price[0]:300}&price[lte]=${price[1]?price[1]:5000}`
+    });
+    let link =  `${ANIMESTOREAPI}/api/v1/products?page=${page}&ratings[gte]=${ratings ? ratings : 1}&price[gte]=${price[0] ?price[0]:100}&price[lte]=${price[1]?price[1]:600}`
     if (category) {
-      link = `/api/v1/products?keyword=${keyword}&page=${page}&rating[gte]=${rating}&price[gte]=${price[0] ?price[0]:300}&price[lte]=${price[1]?price[1]:5000}&category=${category}`;
+      link = `${ANIMESTOREAPI}/api/v1/products?page=${page}&ratings[gte]=${ratings ? ratings : 1}&price[gte]=${price[0] ?price[0]:100}&price[lte]=${price[1]?price[1]:600}&category=${category}`;
     }
+    if(anime){
+      page=1
+      link =  `${ANIMESTOREAPI}/api/v1/products?anime=${anime}&page=${page}&ratings[gte]=${ratings ? ratings : 1}&price[gte]=${price[0] ?price[0]:100}&price[lte]=${price[1]?price[1]:600}`
+    }
+
     const {data} = await axios.get(link);
     dispatch({
         type:"allProductSuccess",
@@ -31,7 +36,7 @@ export const getProductDetails = (id)=>async(dispatch)=>{
        type:"productDetailsRequest"
    });
 
-   const {data} = await axios.get(`/api/v1/product/${id}`);
+   const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/product/${id}`);
    
    dispatch({
        type:"productDetailsSuccess",

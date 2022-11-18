@@ -1,12 +1,12 @@
 import axios from "axios";
-
-export const loginUser = (email,password)=>async(dispatch)=>{
+import { ANIMESTOREAPI } from "../Service/Service";
+export const loginUser = (email,password,navigate,toast)=>async(dispatch)=>{
 try{
     dispatch({
         type:"LoginRequest"
     });
     
-    const {data} = await axios.post("/api/v1/login",{
+    const {data} = await axios.post(`${ANIMESTOREAPI}/api/v1/login`,{
         email:email,
         password:password
         },
@@ -19,6 +19,8 @@ try{
         type:"LoginSuccess",
         payload:data
         })
+        navigate("/home")
+        toast.success("user logged in Succefully")
         
 }
 catch(error){
@@ -34,7 +36,7 @@ export const signupUser = (name,email,password)=>async(dispatch)=>{
         dispatch({
             type:"SignupRequest"
         })
-        const {data} = await axios.post("/api/v1/register",{
+        const {data} = await axios.post(`${ANIMESTOREAPI}/api/v1/register`,{
             name:name,
             email:email,
             password:password
@@ -63,7 +65,7 @@ export const loadUser = ()=>async(dispatch)=>{
       dispatch({
             type:"LoadUserRequest"
         })
-       const {data} = await axios.get("/api/v1/me");
+     const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/me`);
       dispatch({
         type:"LoadUserSuccess",
         payload:data
@@ -82,7 +84,7 @@ export const logoutUser = ()=>async(dispatch)=>{
         dispatch({
             type:"LogoutRequest"
         });
-        await axios.get("/api/v1/logout");
+        await axios.get(`${ANIMESTOREAPI}/api/v1/logout`);
         dispatch({
             type:"LogoutSuccess"
         });
