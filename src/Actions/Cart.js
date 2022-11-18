@@ -7,12 +7,13 @@ export const addToCart = (id,quantity=1)=>async(dispatch,getState)=>{
     type:"AddToCart",
     payload:{
         id:data.product._id,
+        name:data.product.name,
         price: data.product.price,
-        stock: data.product.Stock,
+        image:data.product.image,
         quantity
     }
 });
-console.log("insid add to cart")
+console.log(data.product)
 localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 
 };
@@ -36,10 +37,18 @@ export const changeQuantity = (id,quantity)=>(dispatch,getState)=>{
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 }
 
+export const clearCartItems = ()=>(dispatch)=>{
+ dispatch({
+    type:"ClearCartItems"
+ })
+ localStorage.removeItem("cartItems")
+}
+
 export const shipingInfoData = (data)=>(dispatch)=>{
         dispatch({
             type:"ShipingInfo",
             payload:data
         })
      localStorage.setItem("shipingInfo",JSON.stringify(data))   
+    
 }    
