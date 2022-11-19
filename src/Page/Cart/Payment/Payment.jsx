@@ -50,61 +50,62 @@ function Payment() {
  
   const submitHandler = async (e)=>{
     e.preventDefault();
-    console.log(paymentData.amount)
-   try {
-    const {data} = await axios.post('/api/v1/payments',{
-    amount:paymentData.amount
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-  }
-   )
+    navigate("/success")
+  //   console.log(paymentData.amount)
+  //  try {
+  //   const {data} = await axios.post('/api/v1/payments',{
+  //   amount:paymentData.amount
+  //   },
+  //   {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  // }
+  //  )
   
-  const client_secret = data.client_secret;
+  // const client_secret = data.client_secret;
 
-  if(!stripe || !elements){
-    return
-  }
-  const result = await stripe.confirmCardPayment(client_secret,{
-   payment_method:{
-      card:elements.getElement(CardNumberElement),
-      billing_details:{ 
-       name:user.name,
-       email:user.email,
-       address:{
-        line1: shipingInfo.address,
-        city: shipingInfo.city,
-        state: shipingInfo.state,
-        postal_code: shipingInfo.pincode,
-        country: shipingInfo.country,
-       }  
-     }}
-   })
+  // if(!stripe || !elements){
+  //   return
+  // }
+  // const result = await stripe.confirmCardPayment(client_secret,{
+  //  payment_method:{
+  //     card:elements.getElement(CardNumberElement),
+  //     billing_details:{ 
+  //      name:user.name,
+  //      email:user.email,
+  //      address:{
+  //       line1: shipingInfo.address,
+  //       city: shipingInfo.city,
+  //       state: shipingInfo.state,
+  //       postal_code: shipingInfo.pincode,
+  //       country: shipingInfo.country,
+  //      }  
+  //    }}
+  //  })
 
-   if(result.error){
-    toast.error(result.error.message)
-   }
-   else{
-    if(result.paymentIntent.status === "succeeded"){
-      order.paymentInfo = {
-        id:result.paymentIntent.id,
-        status:result.paymentIntent.status
-      };
-      console.log(order)
-      dispatch(createOrder(order))
-      navigate("/success")
-    }
-    else{
-      toast.error("Error while processing payment")
-    }
-   };
-  }
-  catch(error){
-    console.log(error)
-  toast.error(error.response.data.message);
-  }
+  //  if(result.error){
+  //   toast.error(result.error.message)
+  //  }
+  //  else{
+  //   if(result.paymentIntent.status === "succeeded"){
+  //     order.paymentInfo = {
+  //       id:result.paymentIntent.id,
+  //       status:result.paymentIntent.status
+  //     };
+  //     console.log(order)
+  //     dispatch(createOrder(order))
+  //     navigate("/success")
+  //   }
+  //   else{
+  //     toast.error("Error while processing payment")
+  //   }
+  //  };
+  // }
+  // catch(error){
+  //   console.log(error)
+  // toast.error(error.response.data.message);
+  // }
 };
  
 return (
