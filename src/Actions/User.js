@@ -69,11 +69,12 @@ export const loadUser = ()=>async(dispatch)=>{
             type:"LoadUserRequest"
         })
      const token = JSON.parse(localStorage.getItem('token'))   
+     console.log(token)
      const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/me`,{
-        headers:{
-            authorization:`${token}`
-        }
-     });
+        headers: {
+            "Content-Type": "application/json",
+            "authorization":`${token}`
+        }});
       dispatch({
         type:"LoadUserSuccess",
         payload:data
@@ -96,6 +97,7 @@ export const logoutUser = ()=>async(dispatch)=>{
         dispatch({
             type:"LogoutSuccess"
         });
+        localStorage.removeItem('token')
     }
     catch(error){
     dispatch({
