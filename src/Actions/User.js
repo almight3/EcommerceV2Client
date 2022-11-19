@@ -19,6 +19,8 @@ try{
         type:"LoginSuccess",
         payload:data
         })
+        
+        localStorage.setItem("token",JSON.stringify(data.token))
         navigate("/home")
         toast.success("user logged in Succefully")
         
@@ -50,6 +52,7 @@ export const signupUser = (name,email,password)=>async(dispatch)=>{
             type:"SignupSuccess",
             payload:data
             });
+            localStorage.setItem("token",JSON.stringify(data.token))
     }
     catch(error){
         console.log(error)
@@ -65,7 +68,12 @@ export const loadUser = ()=>async(dispatch)=>{
       dispatch({
             type:"LoadUserRequest"
         })
-     const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/me`);
+     const token = JSON.parse(localStorage.getItem('token'))   
+     const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/me`,{
+        headers:{
+            authorization:`${token}`
+        }
+     });
       dispatch({
         type:"LoadUserSuccess",
         payload:data
