@@ -143,7 +143,9 @@ dispatch(getProduct(anime,page,category,ratings,price,keyword))
    </div>
    <div className="divider w-4/12	 mx-auto"></div> 
   <div className='pagination-container'>
-    <Pagination
+   {
+    products.length !==0 && productCount/resultPerPage > 1 ?  
+      <Pagination
         activePage={page}
         itemsCountPerPage={resultPerPage}
         totalItemsCount={productCount}
@@ -157,7 +159,9 @@ dispatch(getProduct(anime,page,category,ratings,price,keyword))
         linkClass="page-link"
         activeClass="pageItemActive"
         activeLinkClass="pageLinkActive"
-    />
+    /> : ""
+
+   }
    </div>
   </>
   }
