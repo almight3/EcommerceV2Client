@@ -2,10 +2,11 @@ import React,{useEffect,useState} from 'react'
 import ProductCard from '../../Component/ProductCard/ProductCard'
 import { useSelector,useDispatch } from "react-redux";
 import { getProduct } from "../../Actions/Product";
-import { useParams,useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import {Oval} from "react-loader-spinner";
 import "./Product.css";
+import NotFound from '../../Component/NotFound/NotFound';
 
 const range = [{range:'100-200'},{range:"200-400"},{range:"500-600"}];
 
@@ -135,7 +136,7 @@ dispatch(getProduct(anime,page,category,ratings,price,keyword))
     <div className="divider lg:divider-horizontal divider-margin"></div> 
     <div className="flex flex-wrap justify-center w-8/12 bg-base rounded-box  box-content">
        {
-        products.length === 0 ? "" :
+        products.length === 0 ? <NotFound /> :
         products.map(product=><ProductCard product={product} />)
        }
     </div>
