@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import {Oval} from "react-loader-spinner";
 import "./Product.css";
+import {sortProductsByPrice} from "../../Actions/Product.js"
 import NotFound from '../../Component/NotFound/NotFound';
 
 const range = [{range:'100-200'},{range:"200-400"},{range:"500-600"}];
@@ -20,7 +21,7 @@ const [price,setPrice] = useState([100,600]);
 const [priceRange,setPriceRange] = useState(range)
 const dispatch = useDispatch();
 const location = useLocation();
-const {loading,error,products,productCount,resultPerPage} = useSelector((state)=>state.products)
+const {loading,products,productCount,resultPerPage} = useSelector((state)=>state.products)
 // page change
 let anime = '';
 let keyword = '';
@@ -71,6 +72,12 @@ const clearAllFilter =()=>{
    setCategory("")
    setPriceRange(range)
  }
+// sort products
+
+const sortProduct=(e)=>{
+ dispatch(sortProductsByPrice(e.target.value))
+}
+
   return (
     <>
   { loading ? <div className='m-auto my-28 w-28'><Oval 
@@ -91,10 +98,10 @@ const clearAllFilter =()=>{
                 <li className='px-4 underline underline-offset-2	text-sm font-medium cursor-pointer' 
                 onClick={clearAllFilter}>Clear Filter</li>
             </ul>
-            <select className='p-2 text-sm font-normal shadow-xl'>
-                <option>Sort by Price</option>
-                <option>Low to High</option>
-                <option>high to High</option>
+            <select className='p-2 text-sm font-normal shadow-xl outline-0	' onChange={(e)=>sortProduct(e)}>
+                <option value={0}>Sort by Price</option>
+                <option value={1}>Low to High</option>
+                <option value={-1}>High to Low</option>
             </select>
           </div>
     <div className="flex flex-col	grow-1 w-2/12	bg-base justify-start items-center">

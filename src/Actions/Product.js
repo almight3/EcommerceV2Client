@@ -60,3 +60,15 @@ export const getProductDetails = (id)=>async(dispatch)=>{
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type:"ClearError" });
 };
+
+export const sortProductsByPrice = (sortValue)=>async(dispatch)=>{
+      if(sortValue>0){
+        dispatch({type:"sortLowToHigh"})
+      }
+      else if(sortValue<0){
+        dispatch({type:"sortHighToLow"})
+      }
+      else{
+        return
+      }
+};

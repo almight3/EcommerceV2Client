@@ -19,6 +19,12 @@ export const productReducer = createReducer(initialState,{
         state.loading = false;
         state.error = action.payload;
     },
+    sortLowToHigh:(state)=>{
+        state.products = state.products.sort((a,b)=>a.price - b.price)
+    },
+    sortHighToLow:(state)=>{
+        state.products = state.products.sort((a,b)=>b.price - a.price)
+    }
     
 });
 
