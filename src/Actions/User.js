@@ -65,20 +65,25 @@ export const signupUser = (name,email,password)=>async(dispatch)=>{
 
 export const loadUser = ()=>async(dispatch)=>{
     try{
-      dispatch({
+     
+     const token = JSON.parse(localStorage.getItem('token'))   
+     if(token){
+        dispatch({
             type:"LoadUserRequest"
         })
-     const token = JSON.parse(localStorage.getItem('token'))   
-     console.log(token)
-     const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/me`,{
-        headers: {
-            "Content-Type": "application/json",
-            "authorization":`${token}`
-        }});
-      dispatch({
-        type:"LoadUserSuccess",
-        payload:data
-      })
+        const {data} = await axios.get(`${ANIMESTOREAPI}/api/v1/me`,{
+            headers: {
+                "Content-Type": "application/json",
+                "authorization":`${token}`
+            }});
+          dispatch({
+            type:"LoadUserSuccess",
+            payload:data
+          })
+     }
+     else{
+        return
+     }
     }
     catch(error){
      dispatch({
