@@ -16,17 +16,19 @@ function Navbar() {
   const dispatch = useDispatch();
   const {isAuthenticated} = useSelector((state)=>state.user) 
   const {cartItems} = useSelector((state)=>state.cart)
-  console.log(isAuthenticated)
   
   const handleSearch = (e)=>{
-    console.log("serc")
-    if(keyword.trim()){
-      navigate(`/home/${keyword}`);
+    if(keyword){
+      const search = keyword.trim()
+     
+      navigate(`/products/${search}`);
+      setKeyword('')  
     }
     else{
-    navigate("/home")
+    navigate("/products")
     }
   };
+ 
   const handelLogout = ()=>{
     dispatch(logoutUser())
     toast.success("User LogOut Successfully")
@@ -45,7 +47,7 @@ function Navbar() {
    <li><NavLink to="/products/onepiece">OnePiece</NavLink></li>
   </ul>
   <div className="w-96 flex-1 ">
-      <input type="text" placeholder="Search" className="w-96 px-4 py-2 bg-gray-200 rounded outline-0"
+      <input type="text" placeholder="Search" value={keyword} className="w-96 px-4 py-2 bg-gray-200 rounded outline-0"
       onChange={(e)=>{setKeyword(e.target.value)}}
       />
       <button className='px-4 py-3 mr-3 bg-black' ><HiOutlineSearch color="white" onClick={()=>{handleSearch()}}/></button>

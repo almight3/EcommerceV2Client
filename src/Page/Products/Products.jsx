@@ -2,12 +2,10 @@ import React,{useEffect,useState} from 'react'
 import ProductCard from '../../Component/ProductCard/ProductCard'
 import { useSelector,useDispatch } from "react-redux";
 import { getProduct } from "../../Actions/Product";
-import { useParams } from "react-router-dom";
+import { useParams,useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import {Oval} from "react-loader-spinner";
 import "./Product.css";
-
-
 
 const range = [{range:'100-200'},{range:"200-400"},{range:"500-600"}];
 
@@ -15,15 +13,24 @@ function Products() {
 
 const [page,setPage] = useState(1);  
 const [category,setCategory]= useState('');
-const [ratings,setRating] = useState(null);
+const [ratings,setRating] = useState(0);
 const [filterPrice,setFilterPrice] = useState([])
 const [price,setPrice] = useState([100,600]);
 const [priceRange,setPriceRange] = useState(range)
 const dispatch = useDispatch();
-const {anime} = useParams();
+const location = useLocation();
 const {loading,error,products,productCount,resultPerPage} = useSelector((state)=>state.products)
-console.log(category)
 // page change
+let anime = '';
+let keyword = '';
+if(location.pathname==="/products/naruto" || location.pathname==="/products/dbz" || location.pathname==="/products/onepiece"){
+   anime = location.pathname.split("/")[2]
+} 
+else{
+  keyword = location.pathname.split("/")[2];
+  console.log(keyword)
+}
+
 const handelPageChange = (e)=>{
  setPage(e)
 }
@@ -56,8 +63,8 @@ const handelPriceChange = (e)=>{
 
 // get all products
 useEffect(()=>{
-dispatch(getProduct(anime,page,category,ratings,price))
-},[dispatch,error,anime,page,category,ratings,price]);
+dispatch(getProduct(anime,page,category,ratings,price,keyword))
+},[dispatch,anime,page,category,ratings,price,keyword]);
 
 
   return (
@@ -103,24 +110,24 @@ dispatch(getProduct(anime,page,category,ratings,price))
       <ul className='mt-2'>
          <li className='p-1 flex justify-between'>
           <label className=" " htmlFor="ratings">4 Stars and Above</label> 
-          <input  type="radio" name="ratings" id="4" value={4} className="radio radio-xs radio-secondary" 
-           checked={ratings==4} onChange={(e)=>setRating(e.target.value)} />
+          <input  type="radio" name="ratings" id="4"  className="radio radio-xs radio-secondary" 
+           checked={ratings==4} onChange={()=>setRating(4)} />
          </li>
 
          <li className='p-1 flex justify-between'>
           <label htmlFor="ratings">3 Stars and Above</label>
-          <input type="radio" name="ratings" id="3" value={3} className="radio radio-xs	radio-secondary" 
-          checked={ratings==3} onChange={(e)=>setRating(e.target.value)} />
+          <input type="radio" name="ratings" id="3" className="radio radio-xs	radio-secondary" 
+          checked={ratings==3} onChange={()=>setRating(3)} />
          </li>
          <li className='p-1 flex justify-between'>
           <label htmlFor="ratings"> 2 Stars and Above </label>
-          <input type="radio" name="ratings" id="2" value={2} className="radio radio-xs	radio-secondary" 
-           checked={ratings==2} onChange={(e)=>setRating(e.target.value)} />
+          <input type="radio" name="ratings" id="2"  className="radio radio-xs	radio-secondary" 
+           checked={ratings==2} onChange={()=>setRating(2)} />
          </li>
          <li className='p-1 flex justify-between'>
           <label htmlFor="ratings">1 Stars and Above </label>
-          <input type="radio" name="ratings" id="1" value={1} className="radio radio-xs	radio-secondary" 
-           checked={ratings==1} onChange={(e)=>setRating(e.target.value)} />
+          <input type="radio" name="ratings" id="1" className="radio radio-xs	radio-secondary" 
+           checked={ratings==1} onChange={()=>setRating(1)} />
          </li>
       </ul>
     </div> 
