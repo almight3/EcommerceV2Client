@@ -16,6 +16,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const {isAuthenticated} = useSelector((state)=>state.user) 
   const {cartItems} = useSelector((state)=>state.cart)
+  const {favouriteProduct} = useSelector((state)=>state.favourite)
   
   const handleSearch = (e)=>{
     if(keyword){
@@ -54,8 +55,9 @@ function Navbar() {
      
   </div>  
   
-  <Link to="/favourite">
-    <FaRegHeart size={20} className='mx-auto' />
+  <Link to="/favourite" className='w-8 relative'>
+ <FaRegHeart size={22} className='pb-0.5' />
+    <span className="badge badge-sm  indicator-item bg-red-500 border-none text-white absolute -top-2  right-0">{isAuthenticated ? favouriteProduct.length : 0}</span>
   </Link>
   
   <div className="w-32 mr-10">
