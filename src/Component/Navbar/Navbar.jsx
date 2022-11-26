@@ -38,7 +38,7 @@ function Navbar() {
 
   return (
   <>
-  <div className="navbar bg-white-100 decoration-neutral-900 mb-4 h-20	 shadow-xl	">
+  <div className="navbar bg-white-100 decoration-neutral-900 mb-4 h-14  	 shadow-xl	">
   <ul className="flex-1 w-96 space-x-6 text-xl ml-8	">
    <li><NavLink to="/home">Home</NavLink></li>
    <li><NavLink to="/products">Products</NavLink></li>
