@@ -10,7 +10,7 @@ function Cart() {
     <div className='flex justify-center w-9/12 mx-auto m-1 '>
        <div className='bg-white shadow-xl w-2/4	flex flex-col	m-2'>
           {
-             cartItems.map((items)=>{
+             cartItems.length===0 ?<h1 className='w-10/12 m-8 text-center text-2xl font-semibold'>Cart is Empty</h1>   : cartItems.map((items)=>{
               console.log(items)
               return <CartItem items={items}/>
             }) 
