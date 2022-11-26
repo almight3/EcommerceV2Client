@@ -29,7 +29,6 @@ if(location.pathname==="/products/naruto" || location.pathname==="/products/dbz"
 } 
 else{
   keyword = location.pathname.split("/")[2];
-  console.log(keyword)
 }
 
 const handelPageChange = (e)=>{
@@ -60,14 +59,18 @@ const handelPriceChange = (e)=>{
     setPrice(filterData)
   }
 }
-
-
 // get all products
 useEffect(()=>{
 dispatch(getProduct(anime,page,category,ratings,price,keyword))
 },[dispatch,anime,page,category,ratings,price,keyword]);
 
-
+// clear Filters
+const clearAllFilter =()=>{
+   setPrice([100,600])
+   setRating(0)
+   setCategory("")
+   setPriceRange(range)
+ }
   return (
     <>
   { loading ? <div className='m-auto my-28 w-28'><Oval 
@@ -82,10 +85,21 @@ dispatch(getProduct(anime,page,category,ratings,price,keyword))
     strokeWidthSecondary={1}
    /></div>    
   :<>
-    <div className="flex flex-col content-center z-10 lg:flex-row w-4/6		mx-auto	">
-    <div className="flex flex-col	grow-1 w-2/12	bg-base justify-start items-center		">
+    <div className="flex flex-wrap content-center z-10 lg:flex-row w-4/6	mx-auto	">
+    <div className='w-full flex flex-wrap justify-around m-1'>
+            <ul>
+                <li className='px-4 underline underline-offset-2	text-sm font-medium cursor-pointer' 
+                onClick={clearAllFilter}>Clear Filter</li>
+            </ul>
+            <select className='p-2 text-sm font-normal shadow-xl'>
+                <option>Sort by Price</option>
+                <option>Low to High</option>
+                <option>high to High</option>
+            </select>
+          </div>
+    <div className="flex flex-col	grow-1 w-2/12	bg-base justify-start items-center">
           <div>
-          <ul className='mt-2 text-center'>
+           <ul className='mt-2 text-center'>
             {priceRange.map((price)=>(
             <li className='m-1' >
              <label className='mr-2'>{price.range}</label>
@@ -134,14 +148,17 @@ dispatch(getProduct(anime,page,category,ratings,price,keyword))
     </div> 
     </div> 
     <div className="divider lg:divider-horizontal divider-margin"></div> 
-    <div className="flex flex-wrap justify-center w-8/12 bg-base rounded-box  box-content">
+     <div className="flex flex-wrap justify-center w-8/12 bg-base rounded-box  box-content">
        {
         products.length === 0 ? <NotFound /> :
-        products.map(product=><ProductCard product={product} />)
+        <>
+       
+          {products.map(product=><ProductCard product={product} />)}
+        </>
        }
     </div>
    </div>
-   <div className="divider w-4/12	 mx-auto"></div> 
+   <div className="divider w-4/12	 mx-auto my-0"></div> 
   <div className='pagination-container'>
    {
     products.length !==0 && productCount/resultPerPage > 1 ?  
