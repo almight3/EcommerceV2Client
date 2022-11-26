@@ -50,8 +50,8 @@ function ProductCard({product}) {
 
 
   return (
-        <div className=" h-96 w-56	bg-white shadow-xl m-4 relative">
-        <figure><img src={product.image} alt="product" 	className='h-64 w-full object-cover text-lg'/></figure>
+        <div className=" h-[370px] w-56	bg-white shadow-xl m-2 relative">
+        <figure><img src={product.image} alt="product" 	className='h-60 w-full object-cover text-lg'/></figure>
         <p className='text-l px-3 decoration-gray-400 font-semibold text-center'>{product.name.slice(0,22)}..</p>
         <p className='text-l px-2 mx-2 mb-1 font-normal text-center'>Rs. {product.price} <small className='badge badge-primary badge-outline text-sm ml-4'>{product.category}</small></p>
         <div className="rating rating-sm px-4 flex justify-center">
