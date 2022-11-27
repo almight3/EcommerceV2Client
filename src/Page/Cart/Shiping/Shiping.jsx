@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FormStepper from '../../../Component/Stepper/FormStepper';
 import {useNavigate } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 
 function Shiping() {
  
@@ -35,6 +36,10 @@ function Shiping() {
 
   return (
     <div>
+     <Helmet>
+          <meta charSet="utf-8" />
+          <title>Shiping Details</title>
+      </Helmet>
      <FormStepper step={1} />
       <form className='flex flex-col items-center m-7' onSubmit={(e)=>handleSubmit(e)}> 
       <h4 className='mx-auto text-center text-2xl font-medium'>Shiping Details</h4>

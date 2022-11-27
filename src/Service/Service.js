@@ -1,1 +1,1 @@
-export const ANIMESTOREAPI = "https://lime-relieved-fawn.cyclic.app"
+export const ANIMESTOREAPI = "https://ecommercev2api.cyclic.app"

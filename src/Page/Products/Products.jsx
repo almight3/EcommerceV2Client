@@ -8,6 +8,8 @@ import {Oval} from "react-loader-spinner";
 import "./Product.css";
 import {sortProductsByPrice} from "../../Actions/Product.js"
 import NotFound from '../../Component/NotFound/NotFound';
+import {Helmet} from "react-helmet";
+
 
 const range = [{range:'100-200'},{range:"200-400"},{range:"500-600"}];
 
@@ -80,6 +82,10 @@ const sortProduct=(e)=>{
 
   return (
     <>
+     <Helmet>
+        <meta charSet="utf-8" />
+        <title>Products | {location.pathname.split("/")[2] ?  location.pathname.split("/")[2] : ""}</title>
+    </Helmet>
   { loading ? <div className='m-auto my-28 w-28'><Oval 
     height={60}
     width={60}

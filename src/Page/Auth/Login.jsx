@@ -5,6 +5,7 @@ import { loginUser,clearError } from "../../Actions/User";
 import {Oval} from "react-loader-spinner";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {Helmet} from "react-helmet";
 
 
 function Login() {
@@ -48,6 +49,10 @@ function Login() {
 
   return (
     <>
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Login</title>
+      </Helmet>
       {loading ? 
         <div className='m-auto my-28 w-28'><Oval 
           height={60}

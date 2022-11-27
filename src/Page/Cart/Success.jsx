@@ -3,6 +3,9 @@ import SuccessLogo from "../../image/success-12.svg";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {clearCartItems} from "../../Actions/Cart";
+import FormStepper from '../../Component/Stepper/FormStepper';
+import {Helmet} from "react-helmet";
+
 function Success() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,9 +18,14 @@ function Success() {
    },[navigate,dispatch]) 
 
   return (
-    <>
-        <img src={SuccessLogo} alt="Payment-Success-logo" className='w-24 mx-auto mt-44 my-8' />
-        <p className='text-2xl font-semibold text-center'>Your Order has been Placed Successfully</p>
+    <>   
+       <Helmet>
+          <meta charSet="utf-8" />
+          <title>Payment Success</title>
+       </Helmet>
+        <FormStepper step={3} />
+        <img src={SuccessLogo} alt="Payment-Success-logo" className='w-24 mx-auto mt-20 my-8 ' />
+        <p className='text-2xl font-semibold text-center mb-20'>Your Order has been Placed Successfully</p>
     </>
   )
 }

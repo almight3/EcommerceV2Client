@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import {useNavigate, NavLink} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
-import { signupUser,clearError } from "../../Actions/User";
+import { signupUser } from "../../Actions/User";
 import {Oval} from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {Helmet} from "react-helmet";
 
 function Signup() {
   const [name,setName] = useState('');
@@ -29,7 +30,7 @@ function Signup() {
     if(isAuthenticated){
       navigate('/home')
     }
-    },[isAuthenticated,error,inputError]);
+    },[isAuthenticated,error,inputError,dispatch,navigate]);
 
   const handelSubmit = (e)=>{
     e.preventDefault();
@@ -50,6 +51,10 @@ function Signup() {
 
   return (
    <>
+   <Helmet>
+          <meta charSet="utf-8" />
+          <title>Signup</title>
+      </Helmet>
      {
       loading ?
       <div className='m-auto my-28 w-28'>

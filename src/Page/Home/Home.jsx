@@ -8,9 +8,16 @@ import Tshirt from "../../image/ProdcutCategory/LuffyZoroTShirt.png";
 import Poster from "../../image/ProdcutCategory/poster.jpg";
 import Manga from "../../image/ProdcutCategory/manga.jpg";
 import {Link} from "react-router-dom";
+import {Helmet} from "react-helmet";
+
+
 function Home() {
   return (
     <div className='mx-auto	w-10/12	'> 
+          <Helmet>
+                <meta charSet="utf-8" />
+                <title>Home</title>
+          </Helmet>
           <div className='relative mx-auto h-96 	my-5'>
             <img src={Banner} alt="website banner" className='w-full h-full object-cover' />
             <div className='absolute top-0 h-full w-full flex items-center justify-center  bg-black/20  opacity-0 hover:opacity-100 transition-all	 duration-300 ease-in-out'>

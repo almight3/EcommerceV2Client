@@ -4,7 +4,6 @@ import {BrowserRouter,Routes,Route,Navigate} from "react-router-dom";
 import Navbar from "./Component/Navbar/Navbar"
 import Cart from './Page/Cart/Cart';
 import Products  from "./Page/Products/Products";
-import ProductDetails from './Page/Products/ProductDetails';
 import Signup from './Page/Auth/Signup';
 import Login from "./Page/Auth/Login";
 import {loadUser} from "./Actions/User"
@@ -12,7 +11,6 @@ import PrivateRoute from "./Component/PrivateRoute/PrivateRoute";
 import {store}  from "./App/Store"
 import Shiping from './Page/Cart/Shiping/Shiping';
 import ConformOrder from './Page/Cart/ConformOrder/ConformOrder';
-import PaymentForm from './Page/Cart/Payment/PaymentForm';
 import Success from "./Page/Cart/Success"
 import Footer from "./Component/Footer/Footer"
 import Home from './Page/Home/Home';
@@ -42,8 +40,8 @@ function App() {
             <Route path="/favourite" element={<Favourite />} />
             <Route path="/shiping" element={<Shiping />} />
             <Route path="/conform/order" element={<ConformOrder />} />
-            <Route path="/process/payment" element={<PaymentForm />} />
-            <Route path="/success" element={<Success />} />
+            {/* <Route path="/process/payment" element={<PaymentForm />} /> */}
+            <Route path="/paymentsuccess" element={<Success />} />
           </Route>
           </Routes>
         <Footer />  
