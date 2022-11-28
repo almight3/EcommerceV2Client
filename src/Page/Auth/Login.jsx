@@ -43,7 +43,7 @@ function Login() {
   }
 
   const handelGuestLogin =()=>{
-      setEmail("admin@gmail.com")
+      setEmail("admin@mail.com")
       setPasword("12345678")
   }
 
@@ -86,7 +86,7 @@ function Login() {
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="text" placeholder="email" className="input" password={email}  onChange={(e)=>{setEmail(e.target.value)}}
+          <input type="text" placeholder="email" className="input" value={email}  onChange={(e)=>{setEmail(e.target.value)}}
             required
           />
         </div>
@@ -103,7 +103,7 @@ function Login() {
         <div className="form-control  ">
           <button className="btn btn-primary text-white" type="submit" onClick={(e)=>{handleSubmit(e)}}>Login</button>
           <label className="label text-sm	mx-auto" onClick={handelGuestLogin} >
-             <NavLink  className=" link link-hover font-medium" to="/signup">Guest Login</NavLink>
+             <p  className=" link link-hover font-medium" to="/signup">Guest Login</p>
         </label>
         </div>
         <label className="label text-sm	mx-auto">
